@@ -1,0 +1,62 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.todolist {
+    margin: 35px;
+    width: 40%;
+}
+
+.todo {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+.todo div:last-child {
+    margin: 0
+}
+
+.todo div {
+    margin-right: 15px;
+}
+
+.title {
+    width: 200px;
+}
+
+.title.done {
+    overflow: hidden;
+    word-wrap: break-word;
+    text-decoration: line-through;
+}
+
+.description {
+    overflow: hidden;
+    word-wrap: break-word;
+    width: 200px;
+    font-weight: 300;
+}
+
+.status {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.due-date {
+    width: 100px;
+}
+
+.due-date.due {
+    color: red;
+}
+
+.terminator {
+    text-align: center;
+}
+
+.terminator:hover {
+    cursor: pointer;
+    color: red;
+}

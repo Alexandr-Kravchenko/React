@@ -1,0 +1,32 @@
+{
+  "todolist": [
+    {
+      "title": "To Build house",
+      "description": "The house of dreams",
+      "due_date": "2026-08-13",
+      "id": 1,
+      "status": false
+    },
+    {
+      "title": "To Plant a tree",
+      "description": "Apple",
+      "due_date": "2024-06-13",
+      "id": 2,
+      "status": false
+    },
+    {
+      "title": "To be Happy",
+      "description": "",
+      "due_date": "2021-08-20",
+      "id": 3,
+      "status": false
+    },
+    {
+      "title": "Just Do It",
+      "description": "",
+      "due_date": "",
+      "id": 4,
+      "status": true
+    }
+  ]
+}
