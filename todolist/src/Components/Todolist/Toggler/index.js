@@ -1,12 +1,12 @@
 import React from 'react';
 
 export default function Toggler(props) {
-    const { state, setState } = props;
+    const { setFilter } = props;
     function onClickAll(e) {
-        setState({...state, filter: 'all'});
+        setFilter('all');
     }
     function onClickOpened(e) {
-        setState({...state, filter: 'opened'});
+        setFilter('opened');
     }
     return (
         <div className="toggle">

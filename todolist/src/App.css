@@ -1,62 +1,119 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.App {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.lists {
+    overflow: hidden;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid gainsboro;
+    background-color: #f9f9f9;
+    height: 100vh;
+}
+
+.lists__title {
+    overflow: hidden;
+    word-wrap: break-word;
+    font-weight: 400;
+    margin: 0;
+    padding: 19.92px 0 19.92px 15px;
+    border-bottom: 1px solid gainsboro;
+}
+
+.list-item {
+    padding-left: 15px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.list-item.active {
+    color: cornflowerblue;
 }
 
 .todolist {
-    margin: 35px;
-    width: 40%;
+    width: 45%;
 }
 
-.todo {
+.todolist__title {
+    overflow: hidden;
+    word-wrap: break-word;
+    font-weight: 600;
+    margin: 0;
+    padding: 19.92px 0 19.92px 15px;
+}
+
+.todolist__todo {
     display: flex;
     flex-direction: row;
-    margin-bottom: 15px;
+    width: 100%;
+    border-bottom: 1px solid gainsboro;
+    padding: 15px
 }
 
-.todo div:last-child {
-    margin: 0
+.todolist__todo:last-child {
+    border: none;
 }
 
-.todo div {
-    margin-right: 15px;
+.todolist__todo__title {
+    width: 25%;
 }
 
-.title {
-    width: 200px;
+.todolist__todo__description {
+    width: 25%;
 }
 
-.title.done {
-    overflow: hidden;
-    word-wrap: break-word;
-    text-decoration: line-through;
-}
-
-.description {
-    overflow: hidden;
-    word-wrap: break-word;
-    width: 200px;
-    font-weight: 300;
-}
-
-.status {
-    width: 50px;
+.todolist__todo__status {
     display: flex;
     justify-content: center;
+    width: 10%;
 }
 
-.due-date {
-    width: 100px;
+.todolist__todo__due-date {
+    width: 15%;
 }
 
-.due-date.due {
-    color: red;
+.todolist__todo__terminator {
+    display: flex;
+    justify-content: center;
+    width: 10%;
 }
 
-.terminator {
-    text-align: center;
-}
-
-.terminator:hover {
+.todolist__todo__terminator:hover {
     cursor: pointer;
     color: red;
+}
+
+.right-sidebar {
+    width: 40%;
+    height: 100vh;
+    border-left: 1px solid gainsboro;
+}
+
+.right-sidebar__title {
+    overflow: hidden;
+    word-wrap: break-word;
+    font-weight: 400;
+    margin: 0;
+    padding: 19.92px 0 19.92px 15px;
+    border-bottom: 1px solid gainsboro;
+}
+
+.right-sidebar__content {
+    margin: 0;
+    padding: 19.92px 0 19.92px 15px;
 }
