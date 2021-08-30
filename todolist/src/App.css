@@ -59,11 +59,11 @@ body {
     display: block;
 }
 
-.dashboard__add::after, .todolist__add::after{
+.dashboard__add::after, .todolist__add::after {
     content: "+";
 }
 
-.dashboard__add.active::after, .todolist__add.active::after{
+.dashboard__add.active::after, .todolist__add.active::after {
     font-size: small;
     content: "cancel";
 }
@@ -118,10 +118,11 @@ body {
     left: -15px;
 }
 
-.todolist__add::after{
+.todolist__add::after {
     content: "+";
 }
-.todolist__add.active::after{
+
+.todolist__add.active::after {
     font-size: small;
     content: "cancel";
 }
@@ -213,4 +214,35 @@ body {
 
 .today-tasks-page__content {
     overflow-y: auto;
+}
+
+.add-todo {
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid gainsboro;
+}
+
+.add-todo__title, .add-todo__description, .add-todo__date, .add-todo__submit {
+    border: none;
+    padding: 15px;
+}
+
+.add-todo__title {
+    width: 30%;
+}
+
+.add-todo__description {
+    width: 40%;
+}
+.add-todo__date {
+    width: 20%;
+}
+
+.add-todo__submit {
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    color: grey;
+    cursor: pointer;
+    width: 10%;
 }

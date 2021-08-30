@@ -4,7 +4,7 @@ import Toggler from './Toggler';
 import AddTodoForm from '../AddTodoForm';
 
 export default function TodoListPage(props) {
-    const { lists, todolist, onChangeHandler, onRemoveHandler, filter, setFilter, findActiveList, onSubmitAddTodoHandler } = props;
+    const { lists, todolist, onChangeHandler, onRemoveHandler, filter, setFilter, findActiveList, onSubmitHandler } = props;
 
     const [listFormShown, setlistFormShown] = useState(false)
 
@@ -30,7 +30,7 @@ export default function TodoListPage(props) {
             <h2 className="todolist__title">{findActiveList(lists).title}
                 <div className={listFormShown ? "todolist__add active" : "todolist__add"} onClick={toggleForm}></div>
             </h2>
-            {listFormShown ? <AddTodoForm onSubmitHandler={onSubmitAddTodoHandler} /> : null}
+            {listFormShown ? <AddTodoForm onSubmitHandler={onSubmitHandler} /> : null}
             {/* <Toggler filter={filter} setFilter={setFilter} /> */}
             <div className="todolist__content">
                 {
