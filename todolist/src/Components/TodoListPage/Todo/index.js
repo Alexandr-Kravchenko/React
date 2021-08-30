@@ -10,20 +10,20 @@ export default function Todo(props) {
     }
 
     return (
-        <div className="todolist__todo" key={id} id={id}>
-            <div className="todolist__todo__status">
+        <div className="todolist__content__todo" key={id} id={id}>
+            <div className="todolist__content__todo__status">
                 <input type="checkbox" checked={status} onChange={() => onChange(id)} />
             </div>
             <div className={
-                status ? 'todolist__todo__title done' : 'todolist__todo__title'
+                status ? 'todolist__content__todo__title done' : 'todolist__content__todo__title'
             }>
                 {title}
             </div>
-            <div className="todolist__todo__description">{description}</div>
-            <div className={isDue(due_date) ? 'todolist__todo__due-date due' : 'todolist__todo__due-date'}>
+            <div className="todolist__content__todo__description">{description}</div>
+            <div className={isDue(due_date) ? 'todolist__todo__due-date due' : 'todolist__content__todo__due-date'}>
                 {due_date}
             </div>
-            <div className="todolist__todo__terminator" onClick={() => onRemove(id)}>✖</div>
+            <div className="todolist__content__todo__terminator" onClick={() => onRemove(id)}>✖</div>
         </div>
     )
 }

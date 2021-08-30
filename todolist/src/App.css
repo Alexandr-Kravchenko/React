@@ -15,9 +15,8 @@ body {
     width: 100%;
 }
 
-.lists {
-    overflow: hidden;
-    width: 15%;
+.dashboard {
+    width: 20%;
     display: flex;
     flex-direction: column;
     border-right: 1px solid gainsboro;
@@ -25,28 +24,79 @@ body {
     height: 100vh;
 }
 
-.lists__title {
-    overflow: hidden;
-    word-wrap: break-word;
+.dashboard__title {
+    display: flex;
     font-weight: 400;
     margin: 0;
     padding: 19.92px 0 19.92px 15px;
     border-bottom: 1px solid gainsboro;
 }
 
-.list-item {
+.dashboard__items {
+    overflow-y: auto;
+}
+
+.dashboard__items__item {
     padding-left: 15px;
-    height: 50px;
+    min-height: 50px;
     display: flex;
     align-items: center;
 }
 
-.list-item.active {
+.dashboard__items__item:hover {
+    cursor: pointer;
+}
+
+.dashboard__items__item.active {
     color: cornflowerblue;
 }
 
+.dashboard__add, .todolist__add {
+    position: relative;
+    border-radius: 100%;
+    left: 5px;
+    cursor: pointer;
+    display: block;
+}
+
+.dashboard__add::after, .todolist__add::after{
+    content: "+";
+}
+
+.dashboard__add.active::after, .todolist__add.active::after{
+    font-size: small;
+    content: "cancel";
+}
+
+.add-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+
+.add-list__input {
+    width: 100%;
+    min-height: 50px;
+    border: 1px solid gainsboro;
+    padding: 10px 30px 10px 10px;
+}
+
+.add-list__submit {
+    position: absolute;
+    right: 10px;
+    border: 0;
+    background-color: transparent;
+    font-size: 25px;
+    color: grey;
+    cursor: pointer;
+}
+
 .todolist {
+    display: flex;
+    flex-direction: column;
     width: 45%;
+    height: 100vh;
 }
 
 .todolist__title {
@@ -54,58 +104,106 @@ body {
     word-wrap: break-word;
     font-weight: 600;
     margin: 0;
-    padding: 19.92px 0 19.92px 15px;
+    padding: 19.92px 15px;
+    border-bottom: 1px solid gainsboro;
+    display: flex;
+    justify-content: space-between;
 }
 
-.todolist__todo {
+.todolist__add {
+    position: relative;
+    border-radius: 100%;
+    cursor: pointer;
+    display: block;
+    left: -15px;
+}
+
+.todolist__add::after{
+    content: "+";
+}
+.todolist__add.active::after{
+    font-size: small;
+    content: "cancel";
+}
+
+.todolist__content {
+    overflow-y: auto;
+}
+
+.todolist__content__todo {
     display: flex;
     flex-direction: row;
     width: 100%;
     border-bottom: 1px solid gainsboro;
-    padding: 15px
+    padding: 15px;
 }
 
-.todolist__todo:last-child {
+.todolist__content__todo:hover {
+    background-color: #f9f9f9;
+}
+
+.todolist__content__todo:last-child {
     border: none;
 }
 
-.todolist__todo__title {
+.todolist__content__todo__title {
+    overflow: hidden;
+    word-wrap: break-word;
+    width: 28%;
+}
+
+.todolist__content__todo__description {
+    overflow: hidden;
+    word-wrap: break-word;
     width: 25%;
 }
 
-.todolist__todo__description {
-    width: 25%;
+.todolist__content__todo__status {
+    display: flex;
+    justify-content: center;
+    width: 8%;
 }
 
-.todolist__todo__status {
+.todolist__content__todo__due-date {
+    overflow: hidden;
+    word-wrap: break-word;
+    width: 20%;
+}
+
+.todolist__content__todo__terminator {
     display: flex;
     justify-content: center;
     width: 10%;
+    margin-left: auto;
 }
 
-.todolist__todo__due-date {
-    width: 15%;
-}
-
-.todolist__todo__terminator {
-    display: flex;
-    justify-content: center;
-    width: 10%;
-}
-
-.todolist__todo__terminator:hover {
+.todolist__content__todo__terminator:hover {
     cursor: pointer;
     color: red;
 }
 
-.right-sidebar {
+.todolist__content__todo__list-name {
+    overflow: hidden;
+    word-wrap: break-word;
+    display: flex;
+    justify-content: center;
+    width: 25%;
+    cursor: pointer;
+}
+
+.todolist__content__todo__list-name:hover {
+    color: cornflowerblue;
+}
+
+.today-tasks-page {
+    display: flex;
+    flex-direction: column;
     width: 40%;
     height: 100vh;
     border-left: 1px solid gainsboro;
 }
 
-.right-sidebar__title {
-    overflow: hidden;
+.today-tasks-page__title {
     word-wrap: break-word;
     font-weight: 400;
     margin: 0;
@@ -113,7 +211,6 @@ body {
     border-bottom: 1px solid gainsboro;
 }
 
-.right-sidebar__content {
-    margin: 0;
-    padding: 19.92px 0 19.92px 15px;
+.today-tasks-page__content {
+    overflow-y: auto;
 }
