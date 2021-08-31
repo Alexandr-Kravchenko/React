@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DashboardItem from './DashboardItem'
 import AddListForm from '../AddListForm';
+import { NavLink } from 'react-router-dom';
 
 export default function Dashboard(props) {
     const { onSubmitHandler, onListClick, lists } = props;
@@ -20,6 +21,11 @@ export default function Dashboard(props) {
             {listFormShown ? <AddListForm onSubmitHandler={onSubmitHandler} /> : null}
 
             <div className="dashboard__items">
+                <div className="dashboard__items__item">
+                    <div className="dashboard__items__item__title">
+                        <NavLink className="todolist__link" activeClassName="active" to={`/today`}>Today</NavLink>
+                    </div>
+                </div>
                 {
                     lists.map(list => {
                         return <DashboardItem list={list} onClick={onListClick} key={list.id} />

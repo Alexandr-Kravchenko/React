@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams,
+  Redirect
+} from "react-router-dom";
+
 import './App.css';
 import TodoListPage from './Components/TodoListPage';
-import AddTodoForm from './Components/AddTodoForm';
 import Dashboard from './Components/Dashboard';
 import TodayTasksPage from './Components/TodayTasksPage'
 
-function App() {
+export default function App(props) {
   const [todolist, setTodo] = useState([
     {
       title: "To Plant a tree",
       description: "Apple",
-      due_date: "2021-08-30",
+      due_date: "2021-08-31",
       id: 1,
       list_id: 1,
       status: false
@@ -18,7 +25,7 @@ function App() {
     {
       title: "Todo2",
       description: "description2",
-      due_date: "2021-08-30",
+      due_date: "2021-08-31",
       id: 2,
       list_id: 2,
       status: false
@@ -26,7 +33,7 @@ function App() {
     {
       title: "Todo3",
       description: "description3",
-      due_date: "2021-08-30",
+      due_date: "2021-08-31",
       id: 3,
       list_id: 3,
       status: true
@@ -91,17 +98,24 @@ function App() {
 
   function onListClickHandler(id) {
     let tempLists = [...lists];
+    let list_id;
     tempLists.forEach(list => list.active = false)
-    let list_id = tempLists.findIndex(list => list.id === id);
+    if (id) {
+      list_id = tempLists.findIndex(list => list.id === id);
+    } else {
+      list_id = tempLists.findIndex(list => list.id === 1);
+    }
     tempLists[list_id].active = !tempLists[list_id].active;
     setList([...tempLists])
   }
 
   function onSubmitAddTodoHandler(e) {
     e.preventDefault();
+    
     let currentForm = e.target;
     const formData = new FormData(currentForm);
     const todo = Object.fromEntries(formData.entries());
+
     if (validateString(todo.title)) {
       todo.id = todolist.length + 1;
       todo.status = false;
@@ -128,30 +142,42 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Dashboard
-        onListClick={onListClickHandler}
-        onSubmitHandler={onSubmitAddListHandler}
-        lists={lists}
-      />
-      <TodoListPage
-        todolist={todolist}
-        onListClick={onListClickHandler}
-        onChangeHandler={onChangeHandler}
-        onRemoveHandler={onRemoveHandler}
-        findActiveList={findActiveList}
-        filter={filter}
-        setFilter={setFilter}
-        lists={lists}
-        onSubmitHandler={onSubmitAddTodoHandler}
-      />
-      <TodayTasksPage
-        todolist={todolist}
-        lists={lists}
-        onListClick={onListClickHandler}
-      />
-    </div>
+    <Router>
+      <div className="App">
+        <Dashboard
+          onListClick={onListClickHandler}
+          onSubmitHandler={onSubmitAddListHandler}
+          lists={lists}
+        />
+        <Switch>
+          <Route path="/todo-list/:list_id">
+            <TodoListPage
+              path={useParams}
+              todolist={todolist}
+              onListClick={onListClickHandler}
+              onChangeHandler={onChangeHandler}
+              onRemoveHandler={onRemoveHandler}
+              findActiveList={findActiveList}
+              filter={filter}
+              setFilter={setFilter}
+              lists={lists}
+              onSubmitHandler={onSubmitAddTodoHandler}
+            />
+          </Route>
+          <Route path="/today">
+            <TodayTasksPage
+              onChangeHandler={onChangeHandler}
+              todolist={todolist}
+              lists={lists}
+              onListClick={onListClickHandler}
+              path={useParams}
+            />
+          </Route>
+          <Route path="/">
+            <Redirect to="/today" />
+          </Route>
+        </Switch>
+      </div>
+    </Router >
   );
 }
-
-export default App;

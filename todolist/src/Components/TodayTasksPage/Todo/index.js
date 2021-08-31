@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Todo(props) {
     const { id, description, title, due_date, status, list_id } = props.todo;
-    const { onRemove, onChange, list_name, onListClick } = props;
+    const { onChange, list_name, onListClick } = props;
 
     function isDue(date) {
         const currentDate = new Date();
@@ -23,8 +24,10 @@ export default function Todo(props) {
             <div className={isDue(due_date) ? 'todolist__content__todo__due-date due' : 'todolist__content__todo__due-date'}>
                 {due_date}
             </div>
-            <div className="todolist__content__todo__list-name" onClick={() => onListClick(list_id)}>{list_name}</div>
-            {/* <div className="todolist__todo__terminator" onClick={() => onRemove(id)}>✖</div> */}
-        </div>
+
+            <div className="todolist__content__todo__list-name" onClick={() => onListClick(list_id)}>
+                <Link className="todolist__link" to={`/todo-list/${list_id}`} > {list_name}</Link>
+            </div>
+        </div >
     )
 }

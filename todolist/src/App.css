@@ -43,10 +43,6 @@ body {
     align-items: center;
 }
 
-.dashboard__items__item:hover {
-    cursor: pointer;
-}
-
 .dashboard__items__item.active {
     color: cornflowerblue;
 }
@@ -95,7 +91,8 @@ body {
 .todolist {
     display: flex;
     flex-direction: column;
-    width: 45%;
+    /* width: 45%; */
+    width: 100%;
     height: 100vh;
 }
 
@@ -192,14 +189,20 @@ body {
     cursor: pointer;
 }
 
-.todolist__content__todo__list-name:hover {
+.todolist__link:hover {
     color: cornflowerblue;
+}
+
+.todolist__link {
+    text-decoration: none;
+    color: black;
 }
 
 .today-tasks-page {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    /* width: 40%; */
+    width: 100%;
     height: 100vh;
     border-left: 1px solid gainsboro;
 }
@@ -208,8 +211,28 @@ body {
     word-wrap: break-word;
     font-weight: 400;
     margin: 0;
-    padding: 19.92px 0 19.92px 15px;
+    padding: 19.92px 15px;
     border-bottom: 1px solid gainsboro;
+    display: flex;
+    justify-content: space-between;
+}
+
+.today-tasks-page__title__date {
+    margin-left: auto;
+}
+
+.today-tasks-page__title__toggler {
+    background-color: #f0f0f0;
+    border: 1px solid transparent;
+}
+
+.today-tasks-page__title__toggler:hover {
+    border-radius: 5%;
+}
+
+.today-tasks-page__title__toggler:active {
+    border-radius: 5%;
+    background-color: #e6e6e6;
 }
 
 .today-tasks-page__content {
@@ -220,6 +243,7 @@ body {
     width: 100%;
     position: relative;
     border-bottom: 1px solid gainsboro;
+    display: flex;
 }
 
 .add-todo__title, .add-todo__description, .add-todo__date, .add-todo__submit {
@@ -232,10 +256,11 @@ body {
 }
 
 .add-todo__description {
-    width: 40%;
+    width: 28%;
 }
+
 .add-todo__date {
-    width: 20%;
+    width: 25%;
 }
 
 .add-todo__submit {
@@ -245,4 +270,5 @@ body {
     color: grey;
     cursor: pointer;
     width: 10%;
+    margin-left: auto;
 }
