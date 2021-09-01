@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Todo(props) {
     const { id, description, title, due_date, status, list_id } = props.todo;
-    const { onChange, list_name, onListClick } = props;
+    const { onChange, list_name, onSelectList } = props;
 
     function isDue(date) {
         const currentDate = new Date();
@@ -25,7 +25,7 @@ export default function Todo(props) {
                 {due_date}
             </div>
 
-            <div className="todolist__content__todo__list-name" onClick={() => onListClick(list_id)}>
+            <div className="todolist__content__todo__list-name" onClick={() => onSelectList(list_id)}>
                 <Link className="todolist__link" to={`/todo-list/${list_id}`} > {list_name}</Link>
             </div>
         </div >

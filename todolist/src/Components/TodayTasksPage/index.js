@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Todo from './Todo';
 
 export default function TodayTasksPage(props) {
-    const { todolist, lists, onListClick, onChangeHandler } = props;
+    const { todolist, lists, onSelectList, onChangeHandler, countTodayTodo } = props;
     
     const [activeMode, setActiveMode] = useState({
         mode: 'Today',
@@ -55,7 +55,7 @@ export default function TodayTasksPage(props) {
                     return <Todo
                         todo={todo}
                         lists={lists}
-                        onListClick={onListClick}
+                        onSelectList={onSelectList}
                         list_name={getListName(todo.list_id)}
                         onChange={onChangeHandler}
                     />

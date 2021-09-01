@@ -4,7 +4,7 @@ import AddListForm from '../AddListForm';
 import { NavLink } from 'react-router-dom';
 
 export default function Dashboard(props) {
-    const { onSubmitHandler, onListClick, lists } = props;
+    const { onSubmitHandler, onSelectList, lists } = props;
 
     const [listFormShown, setListFormShown] = useState(false);
 
@@ -28,7 +28,7 @@ export default function Dashboard(props) {
                 </div>
                 {
                     lists.map(list => {
-                        return <DashboardItem list={list} onClick={onListClick} key={list.id} />
+                        return <DashboardItem list={list} onClick={onSelectList} key={list.id} />
                     })
                 }
             </div>

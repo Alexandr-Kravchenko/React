@@ -1,32 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'
 import Todo from './Todo';
 import Toggler from './Toggler';
 import AddTodoForm from '../AddTodoForm';
 
 export default function TodoListPage(props) {
-    const { lists, todolist, onChangeHandler, onRemoveHandler, filter, path, findActiveList, onSubmitHandler, onListClick } = props;
+    const { lists, todolist, onChangeHandler, onRemoveHandler, filter, findActiveList, onSubmitHandler, onSelectList } = props;
 
     const [listFormShown, setlistFormShown] = useState(false);
 
-    const params = path();
+    const params = useParams();
 
     useEffect(() => {
-        onListClick(+params.list_id)
+        onSelectList(+params.list_id)
     }, [])
 
     function filterList(list) {
         let activeListId = findActiveList(lists).id;
         if (filter === 'all') {
-            return list.filter(todo => {
-                if(!params.todo_id){
-                    return todo.list_id === activeListId
-                } else {
-                    return todo.list_id === activeListId && todo.id === +params.todo_id
-                }
-            })
+            return list.filter(todo => todo.list_id === activeListId)
         } else if (filter === 'opened') {
             return list.filter(todo => {
-                return todo.status === false && todo.list_id === activeListId
+                return !todo.status && todo.list_id === activeListId
             })
         }
     }

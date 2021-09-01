@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useParams,
   Redirect
 } from "react-router-dom";
 
@@ -12,61 +11,39 @@ import TodoListPage from './Components/TodoListPage';
 import Dashboard from './Components/Dashboard';
 import TodayTasksPage from './Components/TodayTasksPage'
 
+import { useDispatch, useSelector } from "react-redux"
+import { createSelector } from 'reselect'
+
+import { addTodo, deleteTodo, toggleTodo } from './store/todos/actions';
+import { addList, deleteList, setToday, setNumberOpenedTodo } from './store/dashboard/actions';
+
 export default function App(props) {
-  const [todolist, setTodo] = useState([
-    {
-      title: "To Plant a tree",
-      description: "Apple",
-      due_date: "2021-08-31",
-      id: 1,
-      list_id: 1,
-      status: false
-    },
-    {
-      title: "Todo2",
-      description: "description2",
-      due_date: "2021-08-31",
-      id: 2,
-      list_id: 2,
-      status: false
-    },
-    {
-      title: "Todo3",
-      description: "description3",
-      due_date: "2021-08-31",
-      id: 3,
-      list_id: 3,
-      status: true
-    },
-    {
-      title: "Todo4",
-      description: "description4",
-      due_date: "2014-06-13",
-      id: 4,
-      list_id: 2,
-      status: false
-    }
-  ])
-
-  const [lists, setList] = useState([
-    {
-      id: 1,
-      title: 'NewList_1',
-      active: true
-    },
-    {
-      id: 2,
-      title: 'NewList_2',
-      active: false
-    },
-    {
-      id: 3,
-      title: 'NewList_3',
-      active: false
-    }
-  ])
-
+  const dispatch = useDispatch()
   const [filter, setFilter] = useState('all');
+
+  const todolist = useSelector(state => state.todos);
+  const lists = useSelector(state => state.dashboard.lists);
+
+  const numberToday = useSelector(state => state.dashboard.today);
+
+  useEffect(() => {
+    const currentDate = new Date().setHours(0, 0, 0, 0);
+    const openedTasks = new Map();
+    const number = todolist.filter(todo => {
+      let todoDate = new Date(todo.due_date).setHours(0, 0, 0, 0);
+      
+      if(!todo.status && openedTasks.has(todo.list_id)) {
+        openedTasks.set(todo.list_id, openedTasks.get(todo.list_id) + 1)
+      } else {
+        openedTasks.set(todo.list_id, 1)
+      }
+      
+      return todoDate === currentDate && !todo.status
+    }).length;
+    dispatch(setNumberOpenedTodo(Object.fromEntries(openedTasks)))
+    dispatch(setToday(number));
+  }, [todolist])
+
 
   function validateString(str) {
     if (str.trim().length) {
@@ -82,21 +59,21 @@ export default function App(props) {
 
   function onSubmitAddListHandler(e) {
     e.preventDefault();
-    let currentForm = e.target;
+    const currentForm = e.target;
     const formData = new FormData(currentForm);
     const list = Object.fromEntries(formData.entries());
     if (validateString(list.title)) {
       list.id = lists.length + 1;
       list.active = false;
       list.list_id = findActiveList(lists).id;
-      setList([...lists, list])
+      dispatch(addList(list));
       currentForm.reset();
     } else {
       alert('Honey, input your title')
     }
   }
 
-  function onListClickHandler(id) {
+  function onSelectListHandler(id) {
     let tempLists = [...lists];
     let list_id;
     tempLists.forEach(list => list.active = false)
@@ -106,13 +83,13 @@ export default function App(props) {
       list_id = tempLists.findIndex(list => list.id === 1);
     }
     tempLists[list_id].active = !tempLists[list_id].active;
-    setList([...tempLists])
   }
+
 
   function onSubmitAddTodoHandler(e) {
     e.preventDefault();
-    
-    let currentForm = e.target;
+
+    const currentForm = e.target;
     const formData = new FormData(currentForm);
     const todo = Object.fromEntries(formData.entries());
 
@@ -120,41 +97,34 @@ export default function App(props) {
       todo.id = todolist.length + 1;
       todo.status = false;
       todo.list_id = findActiveList(lists).id;
-      setTodo([...todolist, todo])
-      currentForm.reset();
+      dispatch(addTodo(todo))
+      // currentForm.reset();
     } else {
       alert('Honey, input your title')
     }
   }
 
   function onChangeHandler(id) {
-    let tempList = [...todolist]
-    let todo_id = tempList.findIndex(todo => todo.id === id)
-    tempList[todo_id].status = !tempList[todo_id].status;
-    setTodo(tempList);
+    dispatch(toggleTodo(id));
   }
 
   function onRemoveHandler(id) {
-    let tempList = [...todolist]
-    let todo_id = tempList.findIndex(todo => todo.id === id)
-    tempList.splice(todo_id, 1)
-    setTodo(tempList);
+    dispatch(deleteTodo(id))
   }
 
   return (
     <Router>
       <div className="App">
         <Dashboard
-          onListClick={onListClickHandler}
+          onSelectList={onSelectListHandler}
           onSubmitHandler={onSubmitAddListHandler}
           lists={lists}
         />
         <Switch>
           <Route path="/todo-list/:list_id">
             <TodoListPage
-              path={useParams}
               todolist={todolist}
-              onListClick={onListClickHandler}
+              onSelectList={onSelectListHandler}
               onChangeHandler={onChangeHandler}
               onRemoveHandler={onRemoveHandler}
               findActiveList={findActiveList}
@@ -169,8 +139,7 @@ export default function App(props) {
               onChangeHandler={onChangeHandler}
               todolist={todolist}
               lists={lists}
-              onListClick={onListClickHandler}
-              path={useParams}
+              onSelectList={onSelectListHandler}
             />
           </Route>
           <Route path="/">
