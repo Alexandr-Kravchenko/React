@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { createSelector } from 'reselect'
 
 import { addTodo, deleteTodo, toggleTodo } from './store/todos/actions';
-import { addList, deleteList, setToday, setNumberOpenedTodo } from './store/dashboard/actions';
+import { addList, deleteList, selectList, setToday, setNumberOpenedTodo } from './store/dashboard/actions';
 
 export default function App(props) {
   const dispatch = useDispatch()
@@ -31,13 +31,13 @@ export default function App(props) {
     const openedTasks = new Map();
     const number = todolist.filter(todo => {
       let todoDate = new Date(todo.due_date).setHours(0, 0, 0, 0);
-      
-      if(!todo.status && openedTasks.has(todo.list_id)) {
-        openedTasks.set(todo.list_id, openedTasks.get(todo.list_id) + 1)
-      } else {
-        openedTasks.set(todo.list_id, 1)
+      if (!todo.status) {
+        if (openedTasks.has(todo.list_id)) {
+          openedTasks.set(todo.list_id, openedTasks.get(todo.list_id) + 1)
+        } else {
+          openedTasks.set(todo.list_id, 1)
+        }
       }
-      
       return todoDate === currentDate && !todo.status
     }).length;
     dispatch(setNumberOpenedTodo(Object.fromEntries(openedTasks)))
@@ -83,6 +83,7 @@ export default function App(props) {
       list_id = tempLists.findIndex(list => list.id === 1);
     }
     tempLists[list_id].active = !tempLists[list_id].active;
+    dispatch(selectList(tempLists));
   }
 
 
@@ -98,7 +99,7 @@ export default function App(props) {
       todo.status = false;
       todo.list_id = findActiveList(lists).id;
       dispatch(addTodo(todo))
-      // currentForm.reset();
+      currentForm.reset();
     } else {
       alert('Honey, input your title')
     }

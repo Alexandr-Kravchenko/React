@@ -21,15 +21,15 @@ const initialState = [
         title: "Todo3",
         description: "description3",
         due_date: "2021-08-31",
-        id: 2,
+        id: 3,
         list_id: 1,
         status: false
     },
     {
-        title: "Todo3",
+        title: "Todo4",
         description: "description4",
         due_date: "2021-08-31",
-        id: 2,
+        id: 4,
         list_id: 2,
         status: false
     }

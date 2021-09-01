@@ -6,9 +6,17 @@ export const addList = function (list) {
         payload: list
     }
 };
+
 export const deleteList = function (id) {
     return {
         type: Actions.DELETE_LIST,
+        payload: id
+    }
+};
+
+export const selectList = function (id) {
+    return {
+        type: Actions.SELECT_LIST,
         payload: id
     }
 };

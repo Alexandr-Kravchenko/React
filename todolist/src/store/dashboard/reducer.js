@@ -27,6 +27,9 @@ const lists = (state = initialState, { type, payload }) => {
     case Actions.DELETE_LIST:
       return state.filter(list => list.id !== payload);
 
+    case Actions.SELECT_LIST:
+      return state.filter(list => list.id !== payload);
+
     default: return state
   }
 }
