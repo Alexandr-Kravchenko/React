@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Todo(props) {
-    const { id, description, title, due_date, status } = props.todo;
+    const { id, description, title, due_date, done } = props.todo;
     const { onRemove, onChange } = props;
 
     function isDue(date) {
@@ -12,10 +12,10 @@ export default function Todo(props) {
     return (
         <div className="todolist__content__todo" key={id} id={id}>
             <div className="todolist__content__todo__status">
-                <input type="checkbox" checked={status} onChange={() => onChange(id)} />
+                <input type="checkbox" checked={done} onChange={() => onChange(id)} />
             </div>
             <div className={
-                status ? 'todolist__content__todo__title done' : 'todolist__content__todo__title'
+                done ? 'todolist__content__todo__title done' : 'todolist__content__todo__title'
             }>
                 {title}
             </div>

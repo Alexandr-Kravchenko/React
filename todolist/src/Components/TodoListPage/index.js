@@ -18,10 +18,10 @@ export default function TodoListPage(props) {
     function filterList(list) {
         let activeListId = findActiveList(lists).id;
         if (filter === 'all') {
-            return list.filter(todo => todo.list_id === activeListId)
+            return list.filter(todo => todo.listid === activeListId)
         } else if (filter === 'opened') {
             return list.filter(todo => {
-                return !todo.status && todo.list_id === activeListId
+                return !todo.status && todo.listid === activeListId
             })
         }
     }

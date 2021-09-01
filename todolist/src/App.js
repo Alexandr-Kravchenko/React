@@ -12,9 +12,8 @@ import Dashboard from './Components/Dashboard';
 import TodayTasksPage from './Components/TodayTasksPage'
 
 import { useDispatch, useSelector } from "react-redux"
-import { createSelector } from 'reselect'
 
-import { addTodo, deleteTodo, toggleTodo } from './store/todos/actions';
+import { addTodo, deleteTodo, toggleTodo, getAllTodo } from './store/todos/actions';
 import { addList, deleteList, selectList, setToday, setNumberOpenedTodo } from './store/dashboard/actions';
 
 export default function App(props) {
@@ -27,15 +26,16 @@ export default function App(props) {
   const numberToday = useSelector(state => state.dashboard.today);
 
   useEffect(() => {
+    console.log(dispatch(getAllTodo()))
     const currentDate = new Date().setHours(0, 0, 0, 0);
     const openedTasks = new Map();
     const number = todolist.filter(todo => {
       let todoDate = new Date(todo.due_date).setHours(0, 0, 0, 0);
-      if (!todo.status) {
-        if (openedTasks.has(todo.list_id)) {
-          openedTasks.set(todo.list_id, openedTasks.get(todo.list_id) + 1)
+      if (!todo.done) {
+        if (openedTasks.has(todo.listid)) {
+          openedTasks.set(todo.listid, openedTasks.get(todo.listid) + 1)
         } else {
-          openedTasks.set(todo.list_id, 1)
+          openedTasks.set(todo.listid, 1)
         }
       }
       return todoDate === currentDate && !todo.status
@@ -96,7 +96,7 @@ export default function App(props) {
 
     if (validateString(todo.title)) {
       todo.id = todolist.length + 1;
-      todo.status = false;
+      todo.done = false;
       todo.list_id = findActiveList(lists).id;
       dispatch(addTodo(todo))
       currentForm.reset();

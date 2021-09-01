@@ -6,7 +6,7 @@ const initialState = [
         description: "Apple",
         due_date: "2021-08-31",
         id: 1,
-        list_id: 1,
+        listid: 1,
         status: false
     },
     {
@@ -14,7 +14,7 @@ const initialState = [
         description: "description2",
         due_date: "2021-08-31",
         id: 2,
-        list_id: 2,
+        listid: 2,
         status: false
     },
     {
@@ -22,7 +22,7 @@ const initialState = [
         description: "description3",
         due_date: "2021-08-31",
         id: 3,
-        list_id: 1,
+        listid: 1,
         status: false
     },
     {
@@ -30,7 +30,7 @@ const initialState = [
         description: "description4",
         due_date: "2021-08-31",
         id: 4,
-        list_id: 2,
+        listid: 2,
         status: false
     }
 ];
@@ -48,6 +48,9 @@ export const todosReducer = (state = initialState, { type, payload }) => {
             let id = tempState.findIndex(todo => todo.id === payload)
             tempState[id].status = !tempState[id].status;
             return state = tempState;
+
+        case Actions.GET_ALL_TODO:
+            return state.filter(todo => todo.id !== payload);
 
         default: return state
     }

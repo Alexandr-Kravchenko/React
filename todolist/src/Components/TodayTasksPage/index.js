@@ -16,7 +16,7 @@ export default function TodayTasksPage(props) {
         let past_date = new Date(date).setHours(0, 0, 0, 0);
         return list.filter(todo => {
             let todoDate = new Date(todo.due_date).setHours(0, 0, 0, 0);
-            return todoDate === past_date && !todo.status
+            return todoDate === past_date && !todo.done
         })
     }
     
@@ -39,7 +39,7 @@ export default function TodayTasksPage(props) {
         const currentDate = new Date().setHours(0, 0, 0, 0);
         return list.filter(todo => {
             let todoDate = new Date(todo.due_date).setHours(0, 0, 0, 0);
-            return todoDate === currentDate && !todo.status
+            return todoDate === currentDate && !todo.done
         })
     }
     
@@ -56,7 +56,7 @@ export default function TodayTasksPage(props) {
                         todo={todo}
                         lists={lists}
                         onSelectList={onSelectList}
-                        list_name={getListName(todo.list_id)}
+                        list_name={getListName(todo.listid)}
                         onChange={onChangeHandler}
                     />
                 })}
