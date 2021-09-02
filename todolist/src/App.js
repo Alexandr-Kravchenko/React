@@ -19,88 +19,89 @@ export default function App(props) {
   const dispatch = useDispatch()
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    dispatch(getLists())
-  }, [])
+  const listLoadingStatus = useSelector(state => state.dashboard.lists.loaded)
 
   const lists = useSelector(state => state.dashboard.lists.lists);
 
-  // useEffect(() => {
-  //   dispatch(getAllTodo(27))
-  // }, [])
-
+  const numberToday = useSelector(state => state.dashboard.today);
+  
   const todolist = useSelector(state => state.todos);
 
-  const numberToday = useSelector(state => state.dashboard.today);
-
+  useEffect(() => {
+    dispatch(getLists())
+  }, [])
+  
   useEffect(() => {
     dispatch(getNumberOpenedTodo())
     dispatch(getToday())
   }, [todolist])
+ 
+  useEffect(() => {
+    dispatch(getAllTodo())
+  }, [])
+
+  if (listLoadingStatus) {
 
 
-  function validateString(str) {
-    if (str.trim().length) {
-      return true
-    } else {
-      return false
+    function validateString(str) {
+      if (str.trim().length) {
+        return true
+      } else {
+        return false
+      }
     }
-  }
 
-  function findActiveList(lists) {
-    return lists.find(list => list.active);
-  }
-
-  function onSubmitAddListHandler(e) {
-    e.preventDefault();
-    const currentForm = e.target;
-    const formData = new FormData(currentForm);
-    const list = Object.fromEntries(formData.entries());
-    if (validateString(list.title)) {
-      dispatch(addList(list));
-      currentForm.reset();
-    } else {
-      alert('Honey, input your title')
+    function findActiveList(lists) {
+      return lists.find(list => list.active);
     }
-  }
 
-  function onSelectListHandler(id) {
-    dispatch(selectList(id));
-  }
-
-
-  function onSubmitAddTodoHandler(e) {
-    e.preventDefault();
-
-    const currentForm = e.target;
-    const formData = new FormData(currentForm);
-    const todo = Object.fromEntries(formData.entries());
-
-    if (validateString(todo.title)) {
-      todo.id = todolist.length + 1;
-      todo.done = false;
-      todo.list_id = findActiveList(lists).id;
-      dispatch(addTodo(todo))
-      currentForm.reset();
-    } else {
-      alert('Honey, input your title')
+    function onSubmitAddListHandler(e) {
+      e.preventDefault();
+      const currentForm = e.target;
+      const formData = new FormData(currentForm);
+      const list = Object.fromEntries(formData.entries());
+      if (validateString(list.title)) {
+        dispatch(addList(list));
+        currentForm.reset();
+      } else {
+        alert('Honey, input your title')
+      }
     }
-  }
 
-  function onChangeHandler(id) {
-    dispatch(toggleTodo(id));
-  }
+    function onSelectListHandler(id) {
+      dispatch(selectList(id));
+    }
 
-  function onRemoveHandler(id) {
-    dispatch(deleteTodo(id))
-  }
+    
+    function onSubmitAddTodoHandler(e) {
+      e.preventDefault();
+      
+      const currentForm = e.target;
+      const formData = new FormData(currentForm);
+      const todo = Object.fromEntries(formData.entries());
+      
+      if (validateString(todo.title)) {
+        todo.due_date = todo.due_date.length !== 0 ? todo.due_date : null;
+        const currentListId = findActiveList(lists).id;
+        dispatch(addTodo(currentListId, todo))
+        currentForm.reset();
+      } else {
+        alert('Honey, input your title')
+      }
+    }
 
-  function onRemoveListHandler(id) {
-    dispatch(deleteList(id))
-  }
-  const loaded = useSelector(state => state.dashboard.lists.loaded)
+    function onChangeHandler(list_id, todo_id) {
+      dispatch(toggleTodo(list_id, todo_id));
+    }
 
-  if (loaded) {
+    function onRemoveHandler(list_id, todo_id) {
+      dispatch(deleteTodo(list_id, todo_id))
+    }
+
+    function onRemoveListHandler(id) {
+      dispatch(deleteList(id))
+    }
+
     return (
       <Router>
         <div className="App">

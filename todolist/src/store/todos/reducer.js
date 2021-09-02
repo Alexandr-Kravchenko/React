@@ -37,11 +37,17 @@ const initialState = [/*
 
 export const todosReducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case Actions.ADD_TODO:
+        case Actions.ADD_TODO_SUCCESS:
             return state = [...state, payload];
+        case Actions.ADD_TODO_ERROR:
+            console.error(payload);
+            return state;
 
-        case Actions.DELETE_TODO:
+        case Actions.DELETE_TODO_SUCCESS:
             return state.filter(todo => todo.id !== payload);
+        case Actions.DELETE_TODO_ERROR:
+            console.error(payload);
+            return state;
 
         case Actions.TOGGLE_TODO:
             let tempState = [...state];
@@ -49,8 +55,11 @@ export const todosReducer = (state = initialState, { type, payload }) => {
             tempState[id].status = !tempState[id].status;
             return state = tempState;
 
-        case Actions.GET_ALL_TODO:
+        case Actions.GET_ALL_TODO_SUCCESS:
             return state = payload;
+        case Actions.GET_ALL_TODO_ERROR:
+            console.error(payload);
+            return state;
 
         default: return state
     }

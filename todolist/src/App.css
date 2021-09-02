@@ -161,7 +161,12 @@ body {
     width: 28%;
 }
 
+.todolist__content__todo__title.done {
+    text-decoration: line-through;
+}
+
 .todolist__content__todo__description {
+    font-weight: 300;
     overflow: hidden;
     word-wrap: break-word;
     width: 25%;
@@ -177,6 +182,10 @@ body {
     overflow: hidden;
     word-wrap: break-word;
     width: 20%;
+}
+
+.todolist__content__todo__due-date.due {
+    color: red;
 }
 
 .todolist__content__todo__terminator {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Todo(props) {
-    const { id, description, title, due_date, done } = props.todo;
+    const { id, description, title, due_date, done, listid } = props.todo;
     const { onRemove, onChange } = props;
 
     function isDue(date) {
@@ -23,7 +23,7 @@ export default function Todo(props) {
             <div className={isDue(due_date) ? 'todolist__todo__due-date due' : 'todolist__content__todo__due-date'}>
                 {due_date}
             </div>
-            <div className="todolist__content__todo__terminator" onClick={() => onRemove(id)}>✖</div>
+            <div className="todolist__content__todo__terminator" onClick={() => onRemove(listid, id)}>✖</div>
         </div>
     )
 }

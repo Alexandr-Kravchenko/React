@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import Todo from './Todo';
 import Toggler from './Toggler';
 import AddTodoForm from '../AddTodoForm';
-import { useSelector } from 'react-redux';
 
 export default function TodoListPage(props) {
     const { lists, todolist, onChangeHandler, onRemoveHandler, filter, findActiveList, onSubmitHandler, onSelectList } = props;
@@ -11,10 +10,9 @@ export default function TodoListPage(props) {
     const [listFormShown, setlistFormShown] = useState(false);
 
     const params = useParams();
-/*     const loaded = useSelector(state => state.dashboard.lists.loaded)
     useEffect(() => {
-        if(loaded) onSelectList(+params.list_id)
-    }, []) */
+        onSelectList(+params.list_id)
+    }, [])
 
     function filterList(list) {
         let activeListId = findActiveList(lists).id;
