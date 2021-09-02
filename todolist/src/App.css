@@ -41,10 +41,21 @@ body {
     min-height: 50px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
-.dashboard__items__item.active {
-    color: cornflowerblue;
+.dashboard__items__item:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.dashboard__items__item__remove {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.dashboard__items__item__remove:hover {
+    color: red;
 }
 
 .dashboard__add, .todolist__add {
@@ -196,6 +207,10 @@ body {
 .todolist__link {
     text-decoration: none;
     color: black;
+}
+
+.todolist__link.active {
+    color: cornflowerblue;
 }
 
 .today-tasks-page {

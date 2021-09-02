@@ -1,6 +1,6 @@
 import Actions from "./types";
 
-const initialState = [
+const initialState = [/* 
     {
         title: "To Plant a tree",
         description: "Apple",
@@ -32,7 +32,7 @@ const initialState = [
         id: 4,
         listid: 2,
         status: false
-    }
+    } */
 ];
 
 export const todosReducer = (state = initialState, { type, payload }) => {
@@ -50,7 +50,7 @@ export const todosReducer = (state = initialState, { type, payload }) => {
             return state = tempState;
 
         case Actions.GET_ALL_TODO:
-            return state.filter(todo => todo.id !== payload);
+            return state = payload;
 
         default: return state
     }

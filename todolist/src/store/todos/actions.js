@@ -1,12 +1,14 @@
 import Actions from "./types";
 
-export const getAllTodo = dispatch => {
-    fetch('api/lists/1')
+export const getAllTodo = options => dispatch => {
+    fetch(`http://localhost:4000/api/lists/${options}/todos`)
         .then(res => res.json())
-        .then(todolist => dispatch({
-            type: Actions.GET_ALL_TODO,
-            payload: todolist
-        }))
+        .then(todolist => {
+            dispatch({
+                type: Actions.GET_ALL_TODO,
+                payload: todolist
+            })
+        })
 };
 
 export const addTodo = function (todo) {

@@ -1,17 +1,62 @@
 import Actions from "./types";
 
-export const addList = function (list) {
-    return {
-        type: Actions.ADD_LIST,
-        payload: list
-    }
+export const getLists = options => dispatch => {
+    fetch(`http://localhost:4000/api/lists/`)
+        .then(res => res.json())
+        .then(list => {
+            dispatch({
+                type: Actions.GET_ALL_LISTS_SUCCESS,
+                payload: list
+            })
+        })
+        .catch(err =>
+            dispatch({
+                type: Actions.GET_ALL_LISTS_ERROR,
+                payload: err
+            }))
 };
 
-export const deleteList = function (id) {
-    return {
-        type: Actions.DELETE_LIST,
-        payload: id
-    }
+export const addList = options => dispatch => {
+    fetch(`http://localhost:4000/api/lists/`, {
+        method: 'POST',
+        body: JSON.stringify(options),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(res => res.json())
+        .then(list => {
+            dispatch({
+                type: Actions.ADD_LIST_SUCCESS,
+                payload: list.list
+            })
+        })
+        .catch(err =>
+            dispatch({
+                type: Actions.ADD_LIST_ERROR,
+                payload: err
+            }))
+};
+
+export const deleteList = options => dispatch => {
+    fetch(`http://localhost:4000/api/lists/${options}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(res => res.json())
+        .then(list => {
+            dispatch({
+                type: Actions.DELETE_LIST_SUCCESS,
+                payload: options
+            })
+        })
+        .catch(err =>
+            dispatch({
+                type: Actions.DELETE_LIST_ERROR,
+                payload: err
+            }))
 };
 
 export const selectList = function (id) {
@@ -21,19 +66,37 @@ export const selectList = function (id) {
     }
 };
 
-export const setToday = function (numberToday) {
-    return {
-        type: Actions.SET_TODAY,
-        payload: numberToday
-    }
+export const getToday = options => dispatch => {
+    fetch(`http://localhost:4000/api/dashboard`)
+        .then(res => res.json())
+        .then(dashboard => {
+            dispatch({
+                type: Actions.GET_TODAY_SUCCESS,
+                payload: dashboard.amount
+            })
+        })
+        .catch(err =>
+            dispatch({
+                type: Actions.GET_TODAY_ERROR,
+                payload: err
+            }))
 };
 
 
-export const setNumberOpenedTodo = function (numberOpened) {
-    return {
-        type: Actions.SET_NUMBER_OPENED_TODO,
-        payload: numberOpened
-    }
-};
-
+    export const getNumberOpenedTodo = options => dispatch => {
+        fetch(`http://localhost:4000/api/dashboard`)
+            .then(res => res.json())
+            .then(dashboard => {
+                dispatch({
+                    type: Actions.GET_NUMBER_OPENED_TODO_SUCCESS,
+                    payload: dashboard.listData
+                })
+            })
+            .catch(err =>
+                dispatch({
+                    type: Actions.GET_NUMBER_OPENED_TODO_ERROR,
+                    payload: err
+                }))
+    };
+    
 
