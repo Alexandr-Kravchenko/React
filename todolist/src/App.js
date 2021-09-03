@@ -17,31 +17,32 @@ import { addList, deleteList, selectList, getToday, getNumberOpenedTodo, getList
 
 export default function App(props) {
   const dispatch = useDispatch()
-  const [filter, setFilter] = useState('all');
 
   const listLoadingStatus = useSelector(state => state.dashboard.lists.loaded)
 
   const lists = useSelector(state => state.dashboard.lists.lists);
 
   const numberToday = useSelector(state => state.dashboard.today);
-  
-  const todolist = useSelector(state => state.todos);
 
-  useEffect(() => {
-    dispatch(getLists())
-  }, [])
-  
+  const numberOpenedTask = useSelector(state => state.dashboard.openedTasks)
+
+  const todolist = useSelector(state => state.todos.todolist);
+
   useEffect(() => {
     dispatch(getNumberOpenedTodo())
     dispatch(getToday())
   }, [todolist])
- 
+
+  useEffect(() => {
+    dispatch(getLists())
+  }, [])
+
   useEffect(() => {
     dispatch(getAllTodo())
   }, [])
 
-  if (listLoadingStatus) {
 
+  if (listLoadingStatus) {
 
     function validateString(str) {
       if (str.trim().length) {
@@ -72,14 +73,13 @@ export default function App(props) {
       dispatch(selectList(id));
     }
 
-    
     function onSubmitAddTodoHandler(e) {
       e.preventDefault();
-      
+
       const currentForm = e.target;
       const formData = new FormData(currentForm);
       const todo = Object.fromEntries(formData.entries());
-      
+
       if (validateString(todo.title)) {
         todo.due_date = todo.due_date.length !== 0 ? todo.due_date : null;
         const currentListId = findActiveList(lists).id;
@@ -90,8 +90,8 @@ export default function App(props) {
       }
     }
 
-    function onChangeHandler(list_id, todo_id) {
-      dispatch(toggleTodo(list_id, todo_id));
+    function onChangeHandler(list_id, todo_id, status) {
+      dispatch(toggleTodo(list_id, todo_id, { done: !status }));
     }
 
     function onRemoveHandler(list_id, todo_id) {
@@ -110,6 +110,8 @@ export default function App(props) {
             onRemoveList={onRemoveListHandler}
             onSubmitHandler={onSubmitAddListHandler}
             lists={lists}
+            numberToday={numberToday}
+            numberOpenedTask={numberOpenedTask}
           />
           <Switch>
             <Route path="/todo-list/:list_id">
@@ -119,8 +121,6 @@ export default function App(props) {
                 onChangeHandler={onChangeHandler}
                 onRemoveHandler={onRemoveHandler}
                 findActiveList={findActiveList}
-                filter={filter}
-                setFilter={setFilter}
                 lists={lists}
                 onSubmitHandler={onSubmitAddTodoHandler}
               />
@@ -141,6 +141,6 @@ export default function App(props) {
       </Router >
     );
   } else {
-    return <div className="App"></div>
+    return <div className="App"> </div>
   }
 }

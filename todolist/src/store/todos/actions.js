@@ -1,5 +1,12 @@
 import Actions from "./types";
 
+export function setFilter(payload) {
+    return {
+        type: Actions.SET_FILTER,
+        payload
+    }
+}
+
 export const getAllTodo = options => dispatch => {
     fetch(`http://localhost:4000/api/lists/todos`)
         .then(res => res.json())
@@ -27,6 +34,7 @@ export const addTodo = (id, title) => dispatch => {
     })
         .then(res => res.json())
         .then(todo => {
+            console.log(title);
             dispatch({
                 type: Actions.ADD_TODO_SUCCESS,
                 payload: todo.todo
@@ -40,7 +48,7 @@ export const addTodo = (id, title) => dispatch => {
 };
 
 export const deleteTodo = (list_id, todo_id) => dispatch => {
-    fetch(`http://localhost:4000/api/lists/${todo_id}/todos/${list_id}`, {
+    fetch(`http://localhost:4000/api/lists/${list_id}/todos/${todo_id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -49,20 +57,35 @@ export const deleteTodo = (list_id, todo_id) => dispatch => {
         .then(res => res.json())
         .then(todo => {
             dispatch({
-                type: Actions.DELETE_LIST_SUCCESS,
+                type: Actions.DELETE_TODO_SUCCESS,
                 payload: todo_id
             })
         })
         .catch(err =>
             dispatch({
-                type: Actions.DELETE_LIST_ERROR,
+                type: Actions.DELETE_TODO_ERROR,
                 payload: err
             }))
 };
 
-export const toggleTodo = function (id) {
-    return {
-        type: Actions.TOGGLE_TODO,
-        payload: id
-    }
+export const toggleTodo = (list_id, todo_id, status) => dispatch => {
+    fetch(`http://localhost:4000/api/lists/${list_id}/todos/${todo_id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(status),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json())
+        .then(todo => {
+            dispatch({
+                type: Actions.TOGGLE_TODO_SUCCESS,
+                payload: { todo_id, status: status.done }
+            })
+        })
+        .catch(err =>
+            dispatch({
+                type: Actions.TOGGLE_TODO_ERROR,
+                payload: err
+            }))
 };

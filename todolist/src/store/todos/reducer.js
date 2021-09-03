@@ -1,62 +1,55 @@
 import Actions from "./types";
 
-const initialState = [/* 
-    {
-        title: "To Plant a tree",
-        description: "Apple",
-        due_date: "2021-08-31",
-        id: 1,
-        listid: 1,
-        status: false
-    },
-    {
-        title: "Todo2",
-        description: "description2",
-        due_date: "2021-08-31",
-        id: 2,
-        listid: 2,
-        status: false
-    },
-    {
-        title: "Todo3",
-        description: "description3",
-        due_date: "2021-08-31",
-        id: 3,
-        listid: 1,
-        status: false
-    },
-    {
-        title: "Todo4",
-        description: "description4",
-        due_date: "2021-08-31",
-        id: 4,
-        listid: 2,
-        status: false
-    } */
-];
+const initialState = {
+    filter: 'all',
+    todolist: []
+};
 
 export const todosReducer = (state = initialState, { type, payload }) => {
     switch (type) {
+
+        case Actions.SET_FILTER:
+            return state = {...state, filter: payload}
+
         case Actions.ADD_TODO_SUCCESS:
-            return state = [...state, payload];
+            return state = {
+                ...state,
+                todolist: [...state.todolist, payload]
+            };
         case Actions.ADD_TODO_ERROR:
             console.error(payload);
             return state;
 
         case Actions.DELETE_TODO_SUCCESS:
-            return state.filter(todo => todo.id !== payload);
+            return state = {
+                ...state,
+                todolist: state.todolist.filter(todo => todo.id !== payload)
+            };
+
         case Actions.DELETE_TODO_ERROR:
             console.error(payload);
             return state;
 
-        case Actions.TOGGLE_TODO:
-            let tempState = [...state];
-            let id = tempState.findIndex(todo => todo.id === payload)
-            tempState[id].status = !tempState[id].status;
-            return state = tempState;
+        case Actions.TOGGLE_TODO_SUCCESS:
+            let tempState = {...state}
+            tempState.todolist.forEach(todo => {
+                todo.done = todo.id === payload.todo_id ? payload.status : todo.done
+            });
+            console.log(tempState);
+            return {
+                ...state,
+                todolist: tempState.todolist
+            };
+
+        case Actions.TOGGLE_TODO_ERROR:
+            console.error(payload);
+            return state;
 
         case Actions.GET_ALL_TODO_SUCCESS:
-            return state = payload;
+            return state = {
+                ...state,
+                todolist: payload
+            };
         case Actions.GET_ALL_TODO_ERROR:
             console.error(payload);
             return state;

@@ -1,17 +1,13 @@
 import React from 'react';
+import './style.css';
 
 export default function Toggler(props) {
-    const { setFilter } = props;
-    function onClickAll(e) {
-        setFilter('all');
-    }
-    function onClickOpened(e) {
-        setFilter('opened');
-    }
+    const { toggleFilter } = props;
+
     return (
         <div className="toggle">
-            <button onClick={onClickAll}>All</button>
-            <button  onClick={onClickOpened}>Opened</button>
+            <button onClick={() => toggleFilter('all')}>All</button>
+            <button onClick={() => toggleFilter('opened')}>Opened</button>
         </div>
     )
 }

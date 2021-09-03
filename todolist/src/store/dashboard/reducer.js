@@ -10,7 +10,6 @@ const lists = (state = initialState, { type, payload }) => {
   switch (type) {
 
     case Actions.GET_ALL_LISTS_SUCCESS:
-      console.log(payload);
       payload.forEach((list, index) => {
         list.active = index === 0 ? true : false
       });
@@ -85,6 +84,7 @@ const openedTasks = (state = {}, { type, payload }) => {
         result.set(list_id, +data.incomplete);
       })
       return state = Object.fromEntries(result);
+      
     case Actions.GET_NUMBER_OPENED_TODO_ERROR:
       console.error(payload);
       return state

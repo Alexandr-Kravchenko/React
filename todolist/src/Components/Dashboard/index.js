@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import DashboardItem from './DashboardItem'
 import AddListForm from '../AddListForm';
 import { NavLink } from 'react-router-dom';
+import './style.css';
+
 
 export default function Dashboard(props) {
-    const { onSubmitHandler, onSelectList, lists, onRemoveList } = props;
+    const { onSubmitHandler, onSelectList, lists, onRemoveList, numberToday, numberOpenedTask } = props;
 
     const [listFormShown, setListFormShown] = useState(false);
 
@@ -23,12 +25,12 @@ export default function Dashboard(props) {
             <div className="dashboard__items">
                 <div className="dashboard__items__item">
                     <div className="dashboard__items__item__title">
-                        <NavLink className="todolist__link" activeClassName="active" to={`/today`}>Today</NavLink>
+                        <NavLink className="dashboard__items__item__link" activeClassName="active" to={`/today`}>Today ({numberToday})</NavLink>
                     </div>
                 </div>
                 {
                     lists.map(list => {
-                        return <DashboardItem list={list} onClick={onSelectList} key={list.id} onRemove={onRemoveList} />
+                        return <DashboardItem list={list} onClick={onSelectList} key={list.id} onRemove={onRemoveList} numberOpenedTask={numberOpenedTask}/>
                     })
                 }
             </div>

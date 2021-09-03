@@ -1,0 +1,83 @@
+
+.todolist__content__todo {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-bottom: 1px solid gainsboro;
+    padding: 15px;
+}
+
+.todolist__content__todo:hover {
+    background-color: #f9f9f9;
+}
+
+.todolist__content__todo:last-child {
+    border: none;
+}
+
+.todolist__content__todo__title {
+    overflow: hidden;
+    word-wrap: break-word;
+    width: 15%;
+}
+
+.todolist__content__todo__title.done {
+    text-decoration: line-through;
+}
+
+.todolist__content__todo__description {
+    font-weight: 300;
+    overflow: hidden;
+    word-wrap: break-word;
+    width: 40%;
+}
+
+.todolist__content__todo__status {
+    display: flex;
+    justify-content: center;
+    width: 8%;
+}
+
+.todolist__content__todo__due-date {
+    overflow: hidden;
+    word-wrap: break-word;
+    width: 20%;
+}
+
+.todolist__content__todo__due-date.due {
+    color: red;
+}
+
+.todolist__content__todo__terminator {
+    display: flex;
+    justify-content: center;
+    width: 10%;
+    margin-left: auto;
+}
+
+.todolist__content__todo__terminator:hover {
+    cursor: pointer;
+    color: red;
+}
+
+.todolist__content__todo__list-name {
+    overflow: hidden;
+    word-wrap: break-word;
+    display: flex;
+    justify-content: center;
+    width: 25%;
+    cursor: pointer;
+}
+
+.todolist__content__todo__link:hover {
+    color: cornflowerblue;
+}
+
+.todolist__content__todo__link {
+    text-decoration: none;
+    color: black;
+}
+
+.todolist__content__todo__link.active {
+    color: cornflowerblue;
+}

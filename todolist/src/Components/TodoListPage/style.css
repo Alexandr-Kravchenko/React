@@ -1,0 +1,57 @@
+.todolist {
+    display: flex;
+    flex-direction: column;
+    /* width: 45%; */
+    width: 100%;
+    height: 100vh;
+}
+
+.todolist__title {
+    overflow: hidden;
+    word-wrap: break-word;
+    font-weight: 400;
+    margin: 0;
+    padding: 19.92px 15px;
+    border-bottom: 1px solid gainsboro;
+    display: flex;
+    justify-content: space-between;
+}
+
+.todolist__add {
+    position: relative;
+    border-radius: 100%;
+    cursor: pointer;
+    display: block;
+    left: -15px;
+    flex: 1;
+}
+
+.todolist__add::after {
+    content: "+";
+}
+
+.todolist__add.active::after {
+    font-size: small;
+    content: "cancel";
+}
+
+.todolist__add {
+    position: relative;
+    border-radius: 100%;
+    left: 5px;
+    cursor: pointer;
+    display: block;
+}
+
+.todolist__add::after {
+    content: "+";
+}
+
+.todolist__add.active::after {
+    font-size: small;
+    content: "cancel";
+}
+
+.todolist__content {
+    overflow-y: auto;
+}

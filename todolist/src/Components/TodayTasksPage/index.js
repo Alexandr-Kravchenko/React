@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Todo from './Todo';
+import './style.css';
 
 export default function TodayTasksPage(props) {
-    const { todolist, lists, onSelectList, onChangeHandler, countTodayTodo } = props;
+    const { todolist, lists, onSelectList, onChangeHandler } = props;
     
     const [activeMode, setActiveMode] = useState({
         mode: 'Today',
@@ -39,7 +40,7 @@ export default function TodayTasksPage(props) {
         const currentDate = new Date().setHours(0, 0, 0, 0);
         return list.filter(todo => {
             let todoDate = new Date(todo.due_date).setHours(0, 0, 0, 0);
-            return todoDate === currentDate && !todo.done
+            return todoDate === currentDate
         })
     }
     

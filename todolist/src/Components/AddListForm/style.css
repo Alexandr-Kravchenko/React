@@ -1,0 +1,25 @@
+
+.add-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+
+.add-list__input {
+    width: 100%;
+    min-height: 50px;
+    border: 1px solid gainsboro;
+    margin-left: 0.5px;
+    padding: 10px 30px 10px 10px;
+}
+
+.add-list__submit {
+    position: absolute;
+    right: 10px;
+    border: 0;
+    background-color: transparent;
+    font-size: 25px;
+    color: grey;
+    cursor: pointer;
+}

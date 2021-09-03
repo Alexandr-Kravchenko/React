@@ -1,0 +1,41 @@
+
+.today-tasks-page {
+    display: flex;
+    flex-direction: column;
+    /* width: 40%; */
+    width: 100%;
+    height: 100vh;
+    border-left: 1px solid gainsboro;
+}
+
+.today-tasks-page__title {
+    word-wrap: break-word;
+    font-weight: 400;
+    margin: 0;
+    padding: 19.92px 15px;
+    border-bottom: 1px solid gainsboro;
+    display: flex;
+    justify-content: space-between;
+}
+
+.today-tasks-page__title__date {
+    margin-left: auto;
+}
+
+.today-tasks-page__title__toggler {
+    background-color: #f0f0f0;
+    border: 1px solid transparent;
+}
+
+.today-tasks-page__title__toggler:hover {
+    border-radius: 5%;
+}
+
+.today-tasks-page__title__toggler:active {
+    border-radius: 5%;
+    background-color: #e6e6e6;
+}
+
+.today-tasks-page__content {
+    overflow-y: auto;
+}
