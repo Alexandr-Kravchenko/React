@@ -34,7 +34,6 @@ export const addTodo = (id, title) => dispatch => {
     })
         .then(res => res.json())
         .then(todo => {
-            console.log(title);
             dispatch({
                 type: Actions.ADD_TODO_SUCCESS,
                 payload: todo.todo
@@ -55,7 +54,7 @@ export const deleteTodo = (list_id, todo_id) => dispatch => {
         },
     })
         .then(res => res.json())
-        .then(todo => {
+        .then(_ => {
             dispatch({
                 type: Actions.DELETE_TODO_SUCCESS,
                 payload: todo_id
@@ -71,7 +70,7 @@ export const deleteTodo = (list_id, todo_id) => dispatch => {
 export const toggleTodo = (list_id, todo_id, status) => dispatch => {
     fetch(`http://localhost:4000/api/lists/${list_id}/todos/${todo_id}`, {
         method: 'PATCH',
-        body: JSON.stringify(status),
+        body: JSON.stringify({done: !status}),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -80,7 +79,7 @@ export const toggleTodo = (list_id, todo_id, status) => dispatch => {
         .then(todo => {
             dispatch({
                 type: Actions.TOGGLE_TODO_SUCCESS,
-                payload: { todo_id, status: status.done }
+                payload: { todo_id, status, todo }
             })
         })
         .catch(err =>

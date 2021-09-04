@@ -12,7 +12,7 @@ export default function Todo(props) {
     }
 
     return (
-        <div className="todolist__content__todo" key={id} id={id}>
+        <div className="todolist__content__todo" id={id}>
             <div className="todolist__content__todo__status">
                 <input type="checkbox" checked={done} onChange={() => onChange(listid, id, done)} />
             </div>
@@ -22,7 +22,7 @@ export default function Todo(props) {
                 {title}
             </div>
             <div className="todolist__content__todo__description">{description}</div>
-            <div className={isDue(due_date) ? 'todolist__content__todo__due-date due' : 'todolist__content__todo__due-date'}>
+            <div className={isDue(due_date) && !done ? 'todolist__content__todo__due-date due' : 'todolist__content__todo__due-date'}>
                 {due_date}
             </div>
 

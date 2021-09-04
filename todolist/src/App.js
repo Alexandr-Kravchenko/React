@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,7 +15,7 @@ import TodayTasksPage from './Components/TodayTasksPage'
 import { addTodo, deleteTodo, toggleTodo, getAllTodo } from './store/todos/actions';
 import { addList, deleteList, selectList, getToday, getNumberOpenedTodo, getLists } from './store/dashboard/actions';
 
-export default function App(props) {
+export default function App() {
   const dispatch = useDispatch()
 
   const listLoadingStatus = useSelector(state => state.dashboard.lists.loaded)
@@ -31,15 +31,15 @@ export default function App(props) {
   useEffect(() => {
     dispatch(getNumberOpenedTodo())
     dispatch(getToday())
-  }, [todolist])
+  }, [todolist, dispatch])
 
   useEffect(() => {
     dispatch(getLists())
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(getAllTodo())
-  }, [])
+  }, [dispatch])
 
 
   if (listLoadingStatus) {
@@ -91,7 +91,7 @@ export default function App(props) {
     }
 
     function onChangeHandler(list_id, todo_id, status) {
-      dispatch(toggleTodo(list_id, todo_id, { done: !status }));
+      dispatch(toggleTodo(list_id, todo_id, status));
     }
 
     function onRemoveHandler(list_id, todo_id) {

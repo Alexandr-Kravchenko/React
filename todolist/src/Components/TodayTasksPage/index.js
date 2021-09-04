@@ -54,6 +54,7 @@ export default function TodayTasksPage(props) {
             <div className="today-tasks-page__content">
                 {filteredList.map(todo => { 
                     return <Todo
+                        key={todo.id}
                         todo={todo}
                         lists={lists}
                         onSelectList={onSelectList}

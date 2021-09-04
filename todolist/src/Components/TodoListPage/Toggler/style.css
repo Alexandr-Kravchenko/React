@@ -1,0 +1,15 @@
+
+.toggler{
+    background-color: #f0f0f0;
+    border: 1px solid transparent;
+}
+
+.toggler:hover {
+    border-radius: 5%;
+    cursor: pointer;
+}
+
+.toggler.active {
+    border-radius: 5%;
+    background-color: #e6e6e6;
+}

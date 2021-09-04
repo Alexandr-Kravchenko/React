@@ -27,11 +27,11 @@ export default function TodoListPage(props) {
             return list.filter(todo => todo.listid === activeListId)
         } else if (filter === 'opened') {
             return list.filter(todo => {
-                return !todo.status && todo.listid === activeListId
+                return !todo.done && todo.listid === activeListId
             })
         }
     }
-
+    
     function toggleForm() {
         setlistFormShown(!listFormShown);
     }
@@ -45,7 +45,7 @@ export default function TodoListPage(props) {
             <h2 className="todolist__title">
                 {findActiveList(lists).title}
                 <div className={listFormShown ? "todolist__add active" : "todolist__add"} onClick={toggleForm}></div>
-                <Toggler toggleFilter={toggleFilter} />
+                <Toggler toggleFilter={toggleFilter} filter={filter} />
             </h2>
             {listFormShown ? <AddTodoForm onSubmitHandler={onSubmitHandler} /> : null}
             <div className="todolist__content">

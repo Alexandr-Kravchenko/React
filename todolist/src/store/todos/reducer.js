@@ -31,14 +31,13 @@ export const todosReducer = (state = initialState, { type, payload }) => {
             return state;
 
         case Actions.TOGGLE_TODO_SUCCESS:
-            let tempState = {...state}
-            tempState.todolist.forEach(todo => {
-                todo.done = todo.id === payload.todo_id ? payload.status : todo.done
+            let tempTodolist = [...state.todolist]
+            tempTodolist.forEach(todo => {
+                todo.done = todo.id === payload.todo_id ? !payload.status : todo.done
             });
-            console.log(tempState);
             return {
                 ...state,
-                todolist: tempState.todolist
+                todolist: tempTodolist
             };
 
         case Actions.TOGGLE_TODO_ERROR:

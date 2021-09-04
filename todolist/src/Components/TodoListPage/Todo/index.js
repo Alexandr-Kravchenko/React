@@ -20,7 +20,7 @@ export default function Todo(props) {
                 {title}
             </div>
             <div className="todolist__content__todo__description">{description}</div>
-            <div className={isDue(due_date) ? 'todolist__content__todo__due-date due' : 'todolist__content__todo__due-date'}>
+            <div className={isDue(due_date) && !done ? 'todolist__content__todo__due-date due' : 'todolist__content__todo__due-date'}>
                 {due_date}
             </div>
             <div className="todolist__content__todo__terminator" onClick={() => onRemove(listid, id)}>✖</div>

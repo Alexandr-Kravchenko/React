@@ -1,7 +1,6 @@
 .todolist {
     display: flex;
     flex-direction: column;
-    /* width: 45%; */
     width: 100%;
     height: 100vh;
 }
@@ -15,6 +14,8 @@
     border-bottom: 1px solid gainsboro;
     display: flex;
     justify-content: space-between;
+    max-height: 72.83px;
+    min-height: 72.83px;
 }
 
 .todolist__add {
