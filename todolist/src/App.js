@@ -141,6 +141,6 @@ export default function App() {
       </Router >
     );
   } else {
-    return <div className="App"> </div>
+    return <div className="App"> something ooops</div>
   }
 }

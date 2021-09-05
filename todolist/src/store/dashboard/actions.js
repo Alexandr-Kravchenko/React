@@ -1,7 +1,8 @@
 import Actions from "./types";
+import { endPoint } from "../endPoint";
 
 export const getLists = options => dispatch => {
-    fetch(`http://localhost:4000/api/lists/`)
+    fetch(`http://${endPoint}/api/lists/`)
         .then(res => res.json())
         .then(list => {
             dispatch({
@@ -17,7 +18,7 @@ export const getLists = options => dispatch => {
 };
 
 export const addList = options => dispatch => {
-    fetch(`http://localhost:4000/api/lists/`, {
+    fetch(`http://${endPoint}/api/lists/`, {
         method: 'POST',
         body: JSON.stringify(options),
         headers: {
@@ -39,7 +40,7 @@ export const addList = options => dispatch => {
 };
 
 export const deleteList = options => dispatch => {
-    fetch(`http://localhost:4000/api/lists/${options}`, {
+    fetch(`http://${endPoint}/api/lists/${options}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -67,7 +68,7 @@ export const selectList = function (id) {
 };
 
 export const getToday = options => dispatch => {
-    fetch(`http://localhost:4000/api/dashboard`)
+    fetch(`http://${endPoint}/api/dashboard`)
         .then(res => res.json())
         .then(dashboard => {
             dispatch({
@@ -84,7 +85,7 @@ export const getToday = options => dispatch => {
 
 
     export const getNumberOpenedTodo = options => dispatch => {
-        fetch(`http://localhost:4000/api/dashboard`)
+        fetch(`http://${endPoint}/api/dashboard`)
             .then(res => res.json())
             .then(dashboard => {
                 dispatch({

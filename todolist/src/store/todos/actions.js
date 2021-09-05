@@ -1,4 +1,6 @@
 import Actions from "./types";
+import { endPoint } from "../endPoint";
+
 
 export function setFilter(payload) {
     return {
@@ -8,7 +10,7 @@ export function setFilter(payload) {
 }
 
 export const getAllTodo = options => dispatch => {
-    fetch(`http://localhost:4000/api/lists/todos`)
+    fetch(`http://${endPoint}/api/lists/todos`)
         .then(res => res.json())
         .then(todolist => {
             dispatch({
@@ -25,7 +27,7 @@ export const getAllTodo = options => dispatch => {
 };
 
 export const addTodo = (id, title) => dispatch => {
-    fetch(`http://localhost:4000/api/lists/${id}/todos`, {
+    fetch(`http://${endPoint}/api/lists/${id}/todos`, {
         method: 'POST',
         body: JSON.stringify(title),
         headers: {
@@ -47,7 +49,7 @@ export const addTodo = (id, title) => dispatch => {
 };
 
 export const deleteTodo = (list_id, todo_id) => dispatch => {
-    fetch(`http://localhost:4000/api/lists/${list_id}/todos/${todo_id}`, {
+    fetch(`http://${endPoint}/api/lists/${list_id}/todos/${todo_id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -68,7 +70,7 @@ export const deleteTodo = (list_id, todo_id) => dispatch => {
 };
 
 export const toggleTodo = (list_id, todo_id, status) => dispatch => {
-    fetch(`http://localhost:4000/api/lists/${list_id}/todos/${todo_id}`, {
+    fetch(`http://${endPoint}/api/lists/${list_id}/todos/${todo_id}`, {
         method: 'PATCH',
         body: JSON.stringify({done: !status}),
         headers: {

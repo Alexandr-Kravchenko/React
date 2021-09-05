@@ -1,0 +1,1 @@
+export const endPoint = 'localhost:4000'

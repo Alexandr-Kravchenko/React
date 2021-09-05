@@ -13,6 +13,8 @@
     margin: 0;
     padding: 19.92px 0 19.92px 15px;
     border-bottom: 1px solid gainsboro;
+    max-height: 72.83px;
+    min-height: 72.83px;
 }
 
 .dashboard__items {
