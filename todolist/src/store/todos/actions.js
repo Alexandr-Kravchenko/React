@@ -81,7 +81,7 @@ export const toggleTodo = (list_id, todo_id, status) => dispatch => {
         .then(todo => {
             dispatch({
                 type: Actions.TOGGLE_TODO_SUCCESS,
-                payload: { todo_id, status, todo }
+                payload: { todo_id, status }
             })
         })
         .catch(err =>
